@@ -65,3 +65,5 @@ jobs:
           echo "Commande: $BOT_COMMAND"
           echo "Démarrage..."
           bash -lc "$BOT_COMMAND"
+
+# Workflow refresh

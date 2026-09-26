@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MUSLIM BOT PANEL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <div class="brand">☁️ MUSLIM BOT PANEL</div>
+      <div class="sub">GitHub Actions Bot Hosting</div>
+    </div>
+    <a id="actionsBtn" class="btn primary" target="_blank" rel="noopener">⚡ GitHub Actions</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="badge">GITHUB ONLY</span>
+        <h1>Contrôle tes bots depuis GitHub.</h1>
+        <p>Le panneau affiche tes bots et ouvre directement les workflows GitHub Actions pour leur exécution.</p>
+      </div>
+      <div class="warning">
+        <strong>ℹ️ À savoir</strong>
+        <span>GitHub Actions utilise des machines temporaires. Ce n’est pas un VPS 24/7 permanent.</span>
+      </div>
+    </section>
+
+    <section class="grid" id="stats"></section>
+
+    <section class="panel">
+      <div class="sectionHead">
+        <div>
+          <h2>🤖 Mes bots</h2>
+          <p>Liste chargée depuis <code>bots.json</code>.</p>
+        </div>
+        <button class="btn" id="refresh">Actualiser</button>
+      </div>
+      <div id="bots" class="bots"></div>
+    </section>
+
+    <section class="panel help">
+      <h2>🚀 Comment lancer un bot</h2>
+      <ol>
+        <li>Ajoute le code du bot dans <code>bots/nom-du-bot/</code>.</li>
+        <li>Ajoute le bot dans <code>panel/bots.json</code>.</li>
+        <li>Ajoute ses tokens dans <b>Settings → Secrets and variables → Actions</b>.</li>
+        <li>Va dans <b>Actions → MUSLIM BOT RUNNER → Run workflow</b>.</li>
+        <li>Choisis l'identifiant du bot et lance le workflow.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>☁️ MUSLIM BOT PANEL · GitHub Actions Edition</footer>
+  <script src="app.js"></script>
+</body>
+</html>

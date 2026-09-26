@@ -1,0 +1,67 @@
+name: MUSLIM BOT RUNNER
+
+on:
+  workflow_dispatch:
+    inputs:
+      bot:
+        description: "ID du bot dans panel/bots.json"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lire la configuration
+        id: config
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          bot_id = os.environ["BOT_ID"]
+          bots = json.load(open("panel/bots.json", encoding="utf-8"))
+          found = next((b for b in bots if b["id"] == bot_id), None)
+          if not found:
+              print("Bot introuvable:", bot_id)
+              sys.exit(1)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write("path=" + found["path"] + "\n")
+              out.write("runtime=" + found["runtime"] + "\n")
+              out.write("command=" + found["command"] + "\n")
+          PY
+        env:
+          BOT_ID: ${{ inputs.bot }}
+
+      - name: Setup Node.js
+        if: steps.config.outputs.runtime == 'node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup Python
+        if: steps.config.outputs.runtime == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer et lancer le bot
+        shell: bash
+        env:
+          BOT_PATH: ${{ steps.config.outputs.path }}
+          BOT_COMMAND: ${{ steps.config.outputs.command }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: |
+          cd "$BOT_PATH"
+          echo "🚀 MUSLIM BOT PANEL"
+          echo "Bot: ${{ inputs.bot }}"
+          echo "Runtime: ${{ steps.config.outputs.runtime }}"
+          echo "Commande: $BOT_COMMAND"
+          echo "Démarrage..."
+          bash -lc "$BOT_COMMAND"

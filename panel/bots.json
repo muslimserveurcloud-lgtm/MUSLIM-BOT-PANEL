@@ -1,0 +1,16 @@
+[
+  {
+    "id": "example-node",
+    "name": "Example Node Bot",
+    "path": "bots/example-node",
+    "runtime": "node",
+    "command": "npm install && node bot.js"
+  },
+  {
+    "id": "example-python",
+    "name": "Example Python Bot",
+    "path": "bots/example-python",
+    "runtime": "python",
+    "command": "pip install -r requirements.txt && python bot.py"
+  }
+]
